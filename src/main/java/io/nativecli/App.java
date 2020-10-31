@@ -5,6 +5,7 @@ package io.nativecli;
 
 import java.util.concurrent.Callable;
 
+import io.micronaut.context.ApplicationContext;
 import picocli.CommandLine;
 
 @CommandLine.Command(
@@ -15,11 +16,17 @@ import picocli.CommandLine;
 )
 public class App implements Callable<Integer> {
 
+    ApplicationContext ctx;
+
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
 
+    public App() {
+        ctx = ApplicationContext.run();
+    }
+    
     @Override
     public Integer call() throws Exception { // your business logic goes here...
         System.out.println(getGreeting());
@@ -27,7 +34,7 @@ public class App implements Callable<Integer> {
     }
 
     public String getGreeting() {
-        return "Hello CLI :)";
+        return ctx.getBean(GithubApi.class).GET("/users/pditommaso");
     }
     
 }

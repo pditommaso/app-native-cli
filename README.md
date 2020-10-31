@@ -1,6 +1,7 @@
 # Java native app cli
 
-Skeleton for Java based app CLI compiled to a native image. 
+Proof of concept for Java native application user Micronaut Http client and Picocli library 
+for command line parsing.
 
 ## Get started 
 
